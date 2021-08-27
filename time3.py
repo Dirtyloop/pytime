@@ -1,4 +1,5 @@
-import datetime, getopt, sys
+import getopt, sys
+from datetime import datetime
 
 argumentList = sys.argv[1:]
 
@@ -26,19 +27,22 @@ try:
             print(" stop time measurement")
              
         elif currentArgument in ("-s", "--Start"):
-            start_time = datetime.datetime.now()
+            start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             file = open("time2log", "w")
-            file.write("started "+str(start_time))
+            file.write(str(start_time))
             file.close()
             print("Time measurement started at " + str(start_time))
              
         elif currentArgument in ("-e", "--Stop"):
-            current_time = datetime.datetime.now()
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             file = open("time2log", "r")
-            time_from_file = file.read()
+            #time_from_file = datetime.fromisoformat(file.read(), "%Y-%m-%d %H:%M:%S")
+            time_from_file_str = file.read()
+            time_from_file = datetime.strptime(time_from_file_str, "%Y-%m-%d %H:%M:%S")
             file.close()
-            print("Time measurement started at " + str(time_from_file))
+            print("Time measurement started at " + time_from_file_str)
             print("and stopped at " + str(current_time))
+            print("after ", str(datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") - time_from_file))
         
     if not argumentList:
         print("Pytime")
