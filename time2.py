@@ -5,7 +5,8 @@ file = open("time2log", "w")
 file.write("started "+str(start_time))
 file.close()
 
-user_input = input("Press any key to stop the counter...")
+print("Time measurement started.")
+user_input = input("Press enter to stop the counter...")
 
 current_time = datetime.datetime.now()
 
